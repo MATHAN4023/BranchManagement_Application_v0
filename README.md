@@ -1,50 +1,47 @@
-# Blissfulmom Website
+# Car Wash SaaS Application
 
-A modern, full-featured web application for Blissfulmom — providing prenatal, postnatal, and holistic maternal care services.
-
-## Live Site
-
-[avierastudio.netlify.app](https://avierastudio.netlify.app)
+A modern, full-featured SaaS platform for managing car wash businesses. Includes multi-branch, employee, and vendor management, authentication, and a responsive dashboard.
 
 ---
 
 ## Overview
 
-Blissfulmom is a platform dedicated to empowering mothers with innovative care and support throughout their motherhood journey. The site offers information about services, team, philosophy, and provides direct contact and booking options.
+This Car Wash SaaS application streamlines operations for car wash businesses, supporting multiple branches, employee/vendor management, and secure authentication. Built with Next.js 14, TypeScript, and Tailwind CSS for a modern, scalable experience.
 
 ---
 
 ## Features
 
-- **Landing Page:**
-  - Hero carousel, quotes, statistics, features, and difference sections
-  - WhatsApp quick contact button
-- **About & About Us:**
-  - Mission, values, team, philosophy, and vision
-- **Services:**
-  - Detailed breakdown of prenatal, postnatal, and wellness services
-  - Step-by-step process and feature highlights
-- **Contact:**
-  - Interactive contact form (sends details via WhatsApp)
-  - Direct links for email, phone, and map
-- **FAQ:**
-  - Accordion-based answers for common questions about care, recovery, and support
-- **Responsive Design:**
-  - Fully mobile-friendly and accessible
-- **Modern UI:**
-  - Built with Tailwind CSS, Framer Motion, and Radix UI components
+- **Authentication:**
+  - Login, registration, email verification, OTP, password reset/forget flows
+- **Dashboard:**
+  - Overview, navigation, and analytics
+- **Branch Management:**
+  - Add, edit, and manage car wash branches
+- **Employee Management:**
+  - Add, edit, and manage employees
+- **Vendor Management:**
+  - Add, edit, and manage vendors
+- **Pricing & Services:**
+  - Pricing page, service management
+- **User Profile:**
+  - Profile icon, logout, and user settings
+- **Contact & Support:**
+  - Contact form, support options
+- **Responsive UI:**
+  - Mobile-friendly, accessible, and modern design
+- **Reusable Components:**
+  - Built with Radix UI, custom components, and Tailwind CSS
 
 ---
 
 ## Tech Stack
 
 - **Framework:** Next.js 14 (App Router, TypeScript)
-- **Styling:** Tailwind CSS, CSS Modules
+- **Styling:** Tailwind CSS
 - **UI Components:** Radix UI, custom components
-- **Animation:** Framer Motion, GSAP, AOS
-- **Forms:** React Hook Form, Zod validation
-- **Icons:** Lucide, Phosphor
-- **Other:** WhatsApp integration, dynamic font loading
+- **Forms:** React Hook Form, Zod (if used)
+- **Icons:** Lucide, Phosphor (if used)
 
 ---
 
@@ -79,7 +76,12 @@ npm start
 ## Project Structure
 
 - `app/` — Next.js app directory (pages, layouts, routes)
-- `components/` — Reusable UI and section components
+  - `components/` — Page-level and shared components
+  - `contexts/` — React context providers (Auth, Language)
+  - `dashboard/` — Dashboard and management pages (branches, employees, vendors)
+  - `employees/` — Employee management pages
+  - `register/`, `login/`, `reset-password/`, etc. — Auth flows
+- `components/` — Reusable UI components (buttons, dialogs, sidebar, etc.)
 - `hooks/` — Custom React hooks
 - `lib/` — Utility functions
 - `public/` — Static assets (images, icons, etc.)
@@ -88,15 +90,22 @@ npm start
 ---
 
 ## Customization
-- Update service details in `app/services/page.tsx`
-- Edit team, mission, and values in `app/about/page.tsx` and `app/about-us/page.tsx`
-- Adjust contact info in `app/contact/page.tsx`
-- Add/modify FAQs in `app/faq/page.tsx`
+- Update pricing/services in `app/pricing/page.tsx`
+- Edit employee/branch/vendor logic in respective dashboard subfolders
+- Adjust authentication flows in `app/contexts/AuthContext.tsx` and related pages
+- Change contact info in `app/contact/page.tsx`
+- Update UI components in `components/ui/`
 
 ---
 
 ## License
 
-This project is for Blissfulmom. All rights reserved.
+This project is for demonstration and internal use. All rights reserved.
 
-Live Site :  https://blissfulmom.netlify.app/
+---
+Live Site Link :  https://carwash-application.netlify.app/
+ID :mathaniyappan2023@gmail.com 
+pass :Mathan@5
+
+Create a .env File and update the "NEXT_PUBLIC_API_URL=https://carwash-saas.onrender.com
+ " paste this in ENV file 
