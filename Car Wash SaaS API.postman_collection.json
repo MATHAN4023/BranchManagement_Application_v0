@@ -1,0 +1,3599 @@
+{
+	"info": {
+		"_postman_id": "c81c5525-d67e-442f-9664-ad4a2ea95330",
+		"name": "Car Wash SaaS API",
+		"description": "Updated API collection for Car Wash Management SaaS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26986402",
+		"_collection_link": "https://teamrcxbp.postman.co/workspace/Team-Workspace~e3a9f5a5-a688-4ff6-808b-28f7f6998935/collection/41610059-c81c5525-d67e-442f-9664-ad4a2ea95330?action=share&source=collection_link&creator=26986402"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"if (jsonData.data && jsonData.data.token) {",
+									"    pm.environment.set('token', jsonData.data.token);",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@test.com\",\n    \"password\": \"admin123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						},
+						"description": "Login with email and password"
+					},
+					"response": []
+				},
+				{
+					"name": "Register Brand Admin",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"John Doe\",\n    \"email\": \"john@example.com\",\n    \"phone\": \"9876543210\",\n    \"password\": \"Test@123\",\n    \"user_type\": \"brand_admin\",\n    \"brand\": {\n        \"name\": \"Premium Car Wash\",\n        \"subscription_plan\": \"standard\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"register"
+							]
+						},
+						"description": "Register a new brand admin user with brand details"
+					},
+					"response": []
+				},
+				{
+					"name": "Register Branch Admin",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Branch Admin\",\n    \"email\": \"branch.admin@example.com\",\n    \"phone\": \"9876543211\",\n    \"password\": \"Test@123\",\n    \"user_type\": \"branch_admin\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"register"
+							]
+						},
+						"description": "Register a new branch admin user"
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Email",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"john@example.com\",\n    \"code\": \"984227\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/auth/verify-email",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"verify-email"
+							]
+						},
+						"description": "Verify email with OTP code"
+					},
+					"response": []
+				},
+				{
+					"name": "Resend Verification Code",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"john@example.com\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/auth/resend-verification",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"resend-verification"
+							]
+						},
+						"description": "Resend email verification code"
+					},
+					"response": []
+				},
+				{
+					"name": "Request Password Reset",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"john@example.com\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/auth/reset-password-request",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"reset-password-request"
+							]
+						},
+						"description": "Request password reset code"
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"token\": \"f920334c13647c6e0d1e9fd6e354c2018841b3ffdf7f69a9b08e4e6300af3ce4\",\n    \"password\": \"NewTest@123\",\n    \"confirmPassword\": \"NewTest@123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/auth/reset-password",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"reset-password"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Subscription",
+			"item": [
+				{
+					"name": "Get Plans",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/subscription/plans",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"subscription",
+								"plans"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Add-ons",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/subscription/add-ons",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"subscription",
+								"add-ons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Subscribe",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"plan\": \"premium\",\n    \"billing_cycle\": \"monthly\",\n    \"add_ons\": [\n        {\n            \"id\": \"additional_branch\",\n            \"quantity\": 2\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/subscription/subscribe",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"subscription",
+								"subscribe"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Payment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"razorpay_payment_id\": \"pay_123456789\",\n    \"razorpay_order_id\": \"order_123456789\",\n    \"razorpay_signature\": \"signature_hash\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/subscription/verify-payment",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"subscription",
+								"verify-payment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Plan",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"plan\": \"enterprise\",\n    \"effective_date\": \"immediate\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/subscription/change-plan",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"subscription",
+								"change-plan"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Purchase Add-on",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"add_on_id\": \"additional_branch\",\n    \"quantity\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/subscription/add-ons/purchase",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"subscription",
+								"add-ons",
+								"purchase"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Manage Add-on",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": \"disable\",\n    \"effective_date\": \"next_billing\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/subscription/add-ons/additional_branch",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"subscription",
+								"add-ons",
+								"additional_branch"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Billing Overview",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/subscription/billing/overview",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"subscription",
+								"billing",
+								"overview"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Billing History",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/subscription/billing/history",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"subscription",
+								"billing",
+								"history"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Upcoming Billing",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/subscription/billing/upcoming",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"subscription",
+								"billing",
+								"upcoming"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Employees",
+			"item": [
+				{
+					"name": "Create Employee",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Jane Smith\",\n    \"department\": \"Operations\",\n    \"designation\": \"Branch Manager\",\n    \"employee_code\": \"EMP001\",\n    \"date_of_birth\": \"1990-01-15\",\n    \"email\": \"jane@premiumcarwash.com\",\n    \"phone\": \"9876543213\",\n    \"address\": \"789 2nd Cross\",\n    \"city\": \"Bangalore\",\n    \"state\": \"Karnataka\",\n    \"pincode\": \"560078\",\n    \"aadhar_number\": \"123456789012\",\n    \"pan_number\": \"ABCDE1234F\",\n    \"bank_account\": \"1234567890\",\n    \"bank_ifsc\": \"HDFC0001234\",\n    \"salary_amount\": 45000,\n    \"salary_period\": \"monthly\",\n    \"payment_mode\": \"bank_transfer\",\n    \"joining_date\": \"2024-01-01\",\n    \"emergency_contact\": \"John Smith\",\n    \"emergency_phone\": \"9876543214\",\n    \"emergency_relation\": \"Spouse\",\n    \"create_user_profile\": true,\n    \"user_role\": \"branch_manager\",\n    \"password\": \"securepass456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/branches/{{branch_id}}/employees",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"branches",
+								"{{branch_id}}",
+								"employees"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Employees",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/branches/{{branch_id}}/employees?status=active&department=Operations&search=Jane&limit=10&offset=0",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"branches",
+								"{{branch_id}}",
+								"employees"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "active"
+								},
+								{
+									"key": "department",
+									"value": "Operations"
+								},
+								{
+									"key": "search",
+									"value": "Jane"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Employee",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/branches/{{branch_id}}/employees/{{employee_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"branches",
+								"{{branch_id}}",
+								"employees",
+								"{{employee_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Employee",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"designation\": \"Senior Branch Manager\",\n    \"salary_amount\": 50000,\n    \"phone\": \"9876543215\",\n    \"user_data\": {\n        \"email\": \"jane.smith@premiumcarwash.com\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/branches/{{branch_id}}/employees/{{employee_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"branches",
+								"{{branch_id}}",
+								"employees",
+								"{{employee_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Employee",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/branches/{{branch_id}}/employees/{{employee_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"branches",
+								"{{branch_id}}",
+								"employees",
+								"{{employee_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Business Hours",
+			"item": [
+				{
+					"name": "Set Branch Hours",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"day_of_week\": 0,\n        \"is_open\": true,\n        \"open_time\": \"09:00:00\",\n        \"close_time\": \"20:00:00\",\n        \"break_hours\": [\n            {\n                \"start_time\": \"13:00:00\",\n                \"end_time\": \"14:00:00\"\n            }\n        ]\n    },\n    {\n        \"day_of_week\": 1,\n        \"is_open\": true,\n        \"open_time\": \"09:00:00\",\n        \"close_time\": \"20:00:00\"\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/branches/{{branch_id}}/business-hours",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"branches",
+								"{{branch_id}}",
+								"business-hours"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Branch Hours",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/branches/{{branch_id}}/business-hours",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"branches",
+								"{{branch_id}}",
+								"business-hours"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check Business Hours",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/branches/{{branch_id}}/business-hours/check?datetime=2024-02-28T15:30:00",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"branches",
+								"{{branch_id}}",
+								"business-hours",
+								"check"
+							],
+							"query": [
+								{
+									"key": "datetime",
+									"value": "2024-02-28T15:30:00"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Business Hours",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"is_open\": true,\n    \"open_time\": \"10:00:00\",\n    \"close_time\": \"21:00:00\",\n    \"break_hours\": [\n        {\n            \"start_time\": \"14:00:00\",\n            \"end_time\": \"15:00:00\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/branches/{{branch_id}}/business-hours/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"branches",
+								"{{branch_id}}",
+								"business-hours",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Dashboard",
+			"item": [
+				{
+					"name": "Get Brand Dashboard Stats",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/dashboard/brand",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"dashboard",
+								"brand"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Branch Dashboard Stats",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/dashboard/branches",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"dashboard",
+								"branches"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Brand",
+			"item": [
+				{
+					"name": "Get Brand Profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/brands/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"brands",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Brand Profile",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Premium Car Wash Updated\",\n    \"email\": \"contact@premiumcarwash.com\",\n    \"phone\": \"9876543210\",\n    \"address\": \"123 Main St\",\n    \"city\": \"Bangalore\",\n    \"state\": \"Karnataka\",\n    \"pincode\": \"560001\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/brands/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"brands",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Customers",
+			"item": [
+				{
+					"name": "Create Customer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"John Doe\",\n    \"customer_type\": \"individual\",\n    \"phone\": \"9876543210\",\n    \"email\": \"john@example.com\",\n    \"address_line\": \"123 Main Street\",\n    \"address_line_2\": \"Apartment 4B\",\n    \"pincode\": \"560001\",\n    \"state\": \"Karnataka\",\n    \"city\": \"Bangalore\",\n    \"referral_source\": \"Google\",\n    \"credit_days\": 0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/customers",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Business Customer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"ABC Corporation\",\n    \"customer_type\": \"business\",\n    \"gstin\": \"29ABCDE1234F1Z5\",\n    \"phone\": \"9876543210\",\n    \"contact_person\": \"Jane Smith\",\n    \"mobile\": \"9876543211\",\n    \"email\": \"contact@abc.com\",\n    \"address_line\": \"456 Business Park\",\n    \"address_line_2\": \"Block A\",\n    \"pincode\": \"560001\",\n    \"state\": \"Karnataka\",\n    \"city\": \"Bangalore\",\n    \"credit_days\": 30\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/customers",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Customer",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"phone\": \"9876543212\",\n    \"email\": \"john.doe@example.com\",\n    \"address_line\": \"789 New Street\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/customers/{{customer_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"{{customer_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Customer",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/customers/{{customer_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"{{customer_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Customers",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/customers?status=active&customer_type=individual&search=john&limit=10&offset=0",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customers"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "active"
+								},
+								{
+									"key": "customer_type",
+									"value": "individual"
+								},
+								{
+									"key": "search",
+									"value": "john"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Customer",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/customers/{{customer_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"{{customer_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Vehicle",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"brand\": \"Toyota\",\n    \"model\": \"Innova\",\n    \"vehicle_number\": \"KA01AB1234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/customers/{{customer_id}}/vehicles",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"{{customer_id}}",
+								"vehicles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Vehicles",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/customers/{{customer_id}}/vehicles",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"{{customer_id}}",
+								"vehicles"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Vendors",
+			"item": [
+				{
+					"name": "Create Vendor",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"ABC Supplies\",\n    \"vendor_type\": \"supplies\",\n    \"gstin\": \"29ABCDE1234F1Z5\",\n    \"contact_person\": \"John Smith\",\n    \"mobile\": \"9876543210\",\n    \"phone\": \"080123456789\",\n    \"email\": \"contact@abcsupplies.com\",\n    \"address_line\": \"789 Industrial Area\",\n    \"address_line_2\": \"Phase 1\",\n    \"pincode\": \"560058\",\n    \"state\": \"Karnataka\",\n    \"city\": \"Bangalore\",\n    \"credit_days\": 30\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/vendors",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vendors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Vendor",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"mobile\": \"9876543211\",\n    \"email\": \"info@abcsupplies.com\",\n    \"credit_days\": 45\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/vendors/{{vendor_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vendors",
+								"{{vendor_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Vendor",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/vendors/{{vendor_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vendors",
+								"{{vendor_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Vendors",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/vendors?status=active&vendor_type=supplies&search=abc&limit=10&offset=0",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vendors"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "active"
+								},
+								{
+									"key": "vendor_type",
+									"value": "supplies"
+								},
+								{
+									"key": "search",
+									"value": "abc"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Vendor",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/vendors/{{vendor_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vendors",
+								"{{vendor_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Service Categories",
+			"item": [
+				{
+					"name": "Create Category",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Premium Services",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "High-end car care services",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "parent_id",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "sort_order",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "meta_title",
+									"value": "Premium Car Care Services",
+									"type": "text"
+								},
+								{
+									"key": "meta_description",
+									"value": "Luxury car care services for premium vehicles",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/services/categories",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"services",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Categories",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/services/categories?status=active&parent_id=&search=&limit=10&offset=0",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"services",
+								"categories"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "active"
+								},
+								{
+									"key": "parent_id",
+									"value": ""
+								},
+								{
+									"key": "search",
+									"value": ""
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Category Tree",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/services/categories/tree",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"services",
+								"categories",
+								"tree"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Category",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/services/categories/{{category_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"services",
+								"categories",
+								"{{category_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Category",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Premium Services Updated",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Updated description for premium services",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "sort_order",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "active",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/services/categories/{{category_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"services",
+								"categories",
+								"{{category_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Category",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/services/categories/{{category_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"services",
+								"categories",
+								"{{category_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Category Status",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": \"active\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/services/categories/{{category_id}}/status",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"services",
+								"categories",
+								"{{category_id}}",
+								"status"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Services",
+			"item": [
+				{
+					"name": "Create Service",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "category_id",
+									"value": "{{category_id}}",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Premium Wash",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Premium car wash service with wax coating",
+									"type": "text"
+								},
+								{
+									"key": "short_description",
+									"value": "Luxury car wash with wax",
+									"type": "text"
+								},
+								{
+									"key": "duration",
+									"value": "60",
+									"type": "text"
+								},
+								{
+									"key": "sac_code",
+									"value": "998719",
+									"type": "text"
+								},
+								{
+									"key": "is_taxable",
+									"value": "true",
+									"type": "text"
+								},
+								{
+									"key": "gst_rate",
+									"value": "18",
+									"type": "text"
+								},
+								{
+									"key": "sale_price",
+									"value": "999",
+									"type": "text"
+								},
+								{
+									"key": "mrp",
+									"value": "1299",
+									"type": "text"
+								},
+								{
+									"key": "cost_price",
+									"value": "500",
+									"type": "text"
+								},
+								{
+									"key": "images",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "features",
+									"value": "[{\"title\":\"Foam Wash\",\"description\":\"Premium foam wash\"},{\"title\":\"Wax Coating\",\"description\":\"Protective wax coating\"}]",
+									"type": "text"
+								},
+								{
+									"key": "is_featured",
+									"value": "true",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/services",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"services"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Services",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/services?status=active&category_id=&is_featured=false&search=&min_price=&max_price=&duration=&sort_by=name&sort_order=asc&limit=10&offset=0",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"services"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "active"
+								},
+								{
+									"key": "category_id",
+									"value": ""
+								},
+								{
+									"key": "is_featured",
+									"value": "false"
+								},
+								{
+									"key": "search",
+									"value": ""
+								},
+								{
+									"key": "min_price",
+									"value": ""
+								},
+								{
+									"key": "max_price",
+									"value": ""
+								},
+								{
+									"key": "duration",
+									"value": ""
+								},
+								{
+									"key": "sort_by",
+									"value": "name"
+								},
+								{
+									"key": "sort_order",
+									"value": "asc"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Service",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/services/{{service_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"services",
+								"{{service_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Service",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Premium Wash Deluxe",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Updated premium car wash service",
+									"type": "text"
+								},
+								{
+									"key": "duration",
+									"value": "90",
+									"type": "text"
+								},
+								{
+									"key": "sale_price",
+									"value": "1299",
+									"type": "text"
+								},
+								{
+									"key": "mrp",
+									"value": "1599",
+									"type": "text"
+								},
+								{
+									"key": "cost_price",
+									"value": "600",
+									"type": "text"
+								},
+								{
+									"key": "images",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "is_featured",
+									"value": "true",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/services/{{service_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"services",
+								"{{service_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Service",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/services/{{service_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"services",
+								"{{service_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Toggle Service Status",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/services/{{service_id}}/status",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"services",
+								"{{service_id}}",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Import Services",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"description": "CSV file containing services data",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "update_existing",
+									"value": "false",
+									"description": "Whether to update existing services",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/services/bulk-import",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"services",
+								"bulk-import"
+							]
+						},
+						"description": "Import multiple services via CSV file"
+					},
+					"response": []
+				},
+				{
+					"name": "Export Services",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/services/export",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"services",
+								"export"
+							]
+						},
+						"description": "Export all services to CSV format"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Branch Services",
+			"item": [
+				{
+					"name": "Add Branch Services",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/services/branches/{{branch_id}}/services",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"services",
+								"branches",
+								"{{branch_id}}",
+								"services"
+							]
+						},
+						"description": "Add services to a branch with pricing and availability"
+					},
+					"response": []
+				},
+				{
+					"name": "List Branch Services",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/services/branches/{{branch_id}}/services?status=active&category_id=&search=&limit=10&offset=0",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"services",
+								"branches",
+								"{{branch_id}}",
+								"services"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "active"
+								},
+								{
+									"key": "category_id",
+									"value": ""
+								},
+								{
+									"key": "search",
+									"value": ""
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								}
+							]
+						},
+						"description": "List all services for a specific branch"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Branch Service",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/services/branches/{{branch_id}}/services/{{service_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"services",
+								"branches",
+								"{{branch_id}}",
+								"services",
+								"{{service_id}}"
+							]
+						},
+						"description": "Update branch-specific service details"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Branch Service",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/services/branches/{{branch_id}}/services/{{service_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"services",
+								"branches",
+								"{{branch_id}}",
+								"services",
+								"{{service_id}}"
+							]
+						},
+						"description": "Remove a service from a branch"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Branch Service Price",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"mrp\":\"100\",\n    \"sale_price\":\"90\",\n    \"cost_price\":\"80\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/services/branches/{{branch_id}}/services/{{service_id}}/price",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"services",
+								"branches",
+								"{{branch_id}}",
+								"services",
+								"{{service_id}}",
+								"price"
+							]
+						},
+						"description": "Update branch-specific service pricing"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Branch Management",
+			"item": [
+				{
+					"name": "Create Branch",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"JP Nagar Branch\",\n    \"branch_type\": \"company_owned\",\n    \"gstin\": \"29ABCDE1234F1Z5\",\n    \"email\": \"jpnagar@example.com\",\n    \"phone\": \"9876543210\",\n    \"address\": \"123 5th Block, JP Nagar\",\n    \"city\": \"Bangalore\",\n    \"state\": \"Karnataka\",\n    \"pincode\": \"560078\",\n    \"latitude\": 12.91126,\n    \"longitude\": 77.59151,\n    \"operational_settings\": {\n        \"appointment_buffer\": 15,\n        \"max_concurrent_appointments\": 5,\n        \"enable_online_booking\": true\n    }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/branches",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"branches"
+							]
+						},
+						"description": "Create a new branch for the brand"
+					},
+					"response": []
+				},
+				{
+					"name": "List Branches",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/branches?status=active&branch_type=company_owned&search=&limit=10&offset=0&sort_by=created_at&sort_order=desc",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"branches"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "active"
+								},
+								{
+									"key": "branch_type",
+									"value": "company_owned"
+								},
+								{
+									"key": "search",
+									"value": ""
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "sort_by",
+									"value": "created_at"
+								},
+								{
+									"key": "sort_order",
+									"value": "desc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Branch Details",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/branches/{{branch_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"branches",
+								"{{branch_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Branch",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"JP Nagar Main Branch\",\n    \"email\": \"jpnagar.main@example.com\",\n    \"operational_settings\": {\n        \"appointment_buffer\": 20,\n        \"max_concurrent_appointments\": 8\n    }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/branches/{{branch_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"branches",
+								"{{branch_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Branch",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/branches/{{branch_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"branches",
+								"{{branch_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Branch Status",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": \"maintenance\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/branches/{{branch_id}}/status",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"branches",
+								"{{branch_id}}",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Nearby Branches",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/branches/nearby?latitude=12.91126&longitude=77.59151&radius=5&services=1,2,3",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"branches",
+								"nearby"
+							],
+							"query": [
+								{
+									"key": "latitude",
+									"value": "12.91126"
+								},
+								{
+									"key": "longitude",
+									"value": "77.59151"
+								},
+								{
+									"key": "radius",
+									"value": "5"
+								},
+								{
+									"key": "services",
+									"value": "1,2,3",
+									"description": "Optional comma-separated service IDs"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Business Hours",
+			"item": [
+				{
+					"name": "Set Business Hours",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"day_of_week\": 0,\n        \"is_open\": false\n    },\n    {\n        \"day_of_week\": 1,\n        \"is_open\": true,\n        \"open_time\": \"09:00:00\",\n        \"close_time\": \"20:00:00\",\n        \"break_hours\": [\n            {\n                \"start_time\": \"13:00:00\",\n                \"end_time\": \"14:00:00\"\n            }\n        ]\n    },\n    {\n        \"day_of_week\": 2,\n        \"is_open\": true,\n        \"open_time\": \"09:00:00\",\n        \"close_time\": \"20:00:00\"\n    },\n    {\n        \"day_of_week\": 3,\n        \"is_open\": true,\n        \"open_time\": \"09:00:00\",\n        \"close_time\": \"20:00:00\"\n    },\n    {\n        \"day_of_week\": 4,\n        \"is_open\": true,\n        \"open_time\": \"09:00:00\",\n        \"close_time\": \"20:00:00\"\n    },\n    {\n        \"day_of_week\": 5,\n        \"is_open\": true,\n        \"open_time\": \"09:00:00\",\n        \"close_time\": \"20:00:00\"\n    },\n    {\n        \"day_of_week\": 6,\n        \"is_open\": true,\n        \"open_time\": \"09:00:00\",\n        \"close_time\": \"18:00:00\"\n    }\n]"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/branches/{{branch_id}}/business-hours",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"branches",
+								"{{branch_id}}",
+								"business-hours"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Business Hours",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/branches/{{branch_id}}/business-hours",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"branches",
+								"{{branch_id}}",
+								"business-hours"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Holiday",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"date\": \"2024-01-26\",\n    \"name\": \"Republic Day\",\n    \"description\": \"National Holiday\",\n    \"is_recurring\": true,\n    \"recurring_pattern\": \"yearly\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/branches/{{branch_id}}/business-hours/holidays",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"branches",
+								"{{branch_id}}",
+								"business-hours",
+								"holidays"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Holidays",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/branches/{{branch_id}}/business-hours/holidays?year=2024&month=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"branches",
+								"{{branch_id}}",
+								"business-hours",
+								"holidays"
+							],
+							"query": [
+								{
+									"key": "year",
+									"value": "2024"
+								},
+								{
+									"key": "month",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Holiday",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/branches/{{branch_id}}/business-hours/holidays/{{holiday_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"branches",
+								"{{branch_id}}",
+								"business-hours",
+								"holidays",
+								"{{holiday_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Available Time Slots",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/branches/{{branch_id}}/business-hours/slots?date=2024-01-02&service_ids=1,2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"branches",
+								"{{branch_id}}",
+								"business-hours",
+								"slots"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "2024-01-02"
+								},
+								{
+									"key": "service_ids",
+									"value": "1,2",
+									"description": "Optional comma-separated service IDs"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Appointments - Old",
+			"item": [
+				{
+					"name": "Create Appointment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/branches/:{{branchId}}/appointments",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"branches",
+								":{{branchId}}",
+								"appointments"
+							],
+							"variable": [
+								{
+									"key": "{{branchId}}",
+									"value": ""
+								}
+							]
+						},
+						"description": "Create a new appointment for a customer"
+					},
+					"response": []
+				},
+				{
+					"name": "List Appointments",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/branches/:{{branchId}}/appointments",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"branches",
+								":{{branchId}}",
+								"appointments"
+							],
+							"query": [
+								{
+									"key": "start_date",
+									"value": "2024-12-01",
+									"description": "Filter by start date",
+									"disabled": true
+								},
+								{
+									"key": "end_date",
+									"value": "2024-12-31",
+									"description": "Filter by end date",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "scheduled",
+									"description": "Filter by appointment status",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"description": "Number of records per page",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "Number of records to skip",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "{{branchId}}",
+									"value": ""
+								}
+							]
+						},
+						"description": "List all appointments with filters"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Appointment Details",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "/api/v1/branches/:{{branchId}}/appointments/:id",
+							"path": [
+								"api",
+								"v1",
+								"branches",
+								":{{branchId}}",
+								"appointments",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "{{branchId}}",
+									"value": ""
+								},
+								{
+									"key": "id",
+									"value": "",
+									"description": "ID of the appointment"
+								}
+							]
+						},
+						"description": "Get detailed information about a specific appointment"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Appointment",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "/api/v1/branches/:{{branchId}}/appointments/:id",
+							"path": [
+								"api",
+								"v1",
+								"branches",
+								":{{branchId}}",
+								"appointments",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "{{branchId}}",
+									"value": ""
+								},
+								{
+									"key": "id",
+									"value": "",
+									"description": "ID of the appointment"
+								}
+							]
+						},
+						"description": "Update an existing appointment"
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel Appointment",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "/api/v1/branches/:{{branchId}}/appointments/:id/cancel",
+							"path": [
+								"api",
+								"v1",
+								"branches",
+								":{{branchId}}",
+								"appointments",
+								":id",
+								"cancel"
+							],
+							"variable": [
+								{
+									"key": "{{branchId}}",
+									"value": ""
+								},
+								{
+									"key": "id",
+									"value": "",
+									"description": "ID of the appointment"
+								}
+							]
+						},
+						"description": "Cancel an existing appointment"
+					},
+					"response": []
+				},
+				{
+					"name": "Reschedule Appointment",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "/api/v1/branches/:{{branchId}}/appointments/:id/reschedule",
+							"path": [
+								"api",
+								"v1",
+								"branches",
+								":{{branchId}}",
+								"appointments",
+								":id",
+								"reschedule"
+							],
+							"variable": [
+								{
+									"key": "{{branchId}}",
+									"value": ""
+								},
+								{
+									"key": "id",
+									"value": "",
+									"description": "ID of the appointment"
+								}
+							]
+						},
+						"description": "Reschedule an existing appointment"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Available Time Slots",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/branches/:{{branchId}}/appointments/available-slots?date=2024-12-05&service_ids=1,2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"branches",
+								":{{branchId}}",
+								"appointments",
+								"available-slots"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "2024-12-05",
+									"description": "Date to check availability"
+								},
+								{
+									"key": "service_ids",
+									"value": "1,2",
+									"description": "Comma-separated service IDs"
+								}
+							],
+							"variable": [
+								{
+									"key": "{{branchId}}",
+									"value": ""
+								}
+							]
+						},
+						"description": "Get available time slots for services on a specific date"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Appointment Stats",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "/api/v1/branches/:{{branchId}}/appointments/stats?date=2024-12-05",
+							"path": [
+								"api",
+								"v1",
+								"branches",
+								":{{branchId}}",
+								"appointments",
+								"stats"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "2024-12-05",
+									"description": "Date for stats"
+								}
+							],
+							"variable": [
+								{
+									"key": "{{branchId}}",
+									"value": ""
+								}
+							]
+						},
+						"description": "Get appointment statistics for a specific date"
+					},
+					"response": []
+				}
+			],
+			"description": "Core appointment management endpoints"
+		},
+		{
+			"name": "Appointments",
+			"item": [
+				{
+					"name": "Create Appointment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"customer_id\": 1,\n    \"vehicle_id\": 1,\n    \"service_ids\": [\n        1,\n        2\n    ],\n    \"appointment_date\": \"2025-01-10\",\n    \"appointment_time\": \"10:00:00\",\n    \"notes\": \"Please include interior vacuum\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/branches/:branchId/appointments",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"branches",
+								":branchId",
+								"appointments"
+							],
+							"variable": [
+								{
+									"key": "branchId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Appointments",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/branches/:branchId/appointments",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"branches",
+								":branchId",
+								"appointments"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "scheduled",
+									"description": "Filter by status",
+									"disabled": true
+								},
+								{
+									"key": "date",
+									"value": "2025-01-10",
+									"description": "Filter by specific date",
+									"disabled": true
+								},
+								{
+									"key": "customer_id",
+									"value": "1",
+									"description": "Filter by customer",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "branchId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Appointment Details",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/branches/:branchId/appointments/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"branches",
+								":branchId",
+								"appointments",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "branchId",
+									"value": "1"
+								},
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Appointment",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseUrl}}/branches/:branchId/appointments/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"branches",
+								":branchId",
+								"appointments",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "branchId",
+									"value": "1"
+								},
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel Appointment",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseUrl}}/branches/:branchId/appointments/:id/cancel",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"branches",
+								":branchId",
+								"appointments",
+								":id",
+								"cancel"
+							],
+							"variable": [
+								{
+									"key": "branchId",
+									"value": "1"
+								},
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reschedule Appointment",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseUrl}}/branches/:branchId/appointments/:id/reschedule",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"branches",
+								":branchId",
+								"appointments",
+								":id",
+								"reschedule"
+							],
+							"variable": [
+								{
+									"key": "branchId",
+									"value": "1"
+								},
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Available Time Slots",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/branches/:branchId/appointments/available-slots?date=2025-01-10&service_ids=1,2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"branches",
+								":branchId",
+								"appointments",
+								"available-slots"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "2025-01-10",
+									"description": "Date to check availability"
+								},
+								{
+									"key": "service_ids",
+									"value": "1,2",
+									"description": "Comma-separated service IDs"
+								}
+							],
+							"variable": [
+								{
+									"key": "branchId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Appointment Stats",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/branches/:branchId/appointments/stats?date=2025-01-10",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"branches",
+								":branchId",
+								"appointments",
+								"stats"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "2025-01-10",
+									"description": "Date for stats"
+								}
+							],
+							"variable": [
+								{
+									"key": "branchId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"if (pm.response.code === 200) {",
+					"    var jsonData = pm.response.json();",
+					"    if (jsonData.data && jsonData.data.token) {",
+					"        pm.environment.set(\"token\", jsonData.data.token);",
+					"    }",
+					"}"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3000",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkB0ZXN0LmNvbSIsInVzZXJfdHlwZSI6ImJyYW5kX2FkbWluIiwiaWF0IjoxNzMyNTQwMDI4LCJleHAiOjE3MzMxNDQ4Mjh9.4DyZScuPIT4vyUA4riSD4QrOXkbwXHxUknDgkzFDZzA",
+			"type": "string"
+		},
+		{
+			"key": "brand_id",
+			"value": "",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"key": "branch_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "employee_id",
+			"value": "",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"key": "branchId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "baseUrl",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
