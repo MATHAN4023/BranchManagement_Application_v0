@@ -109,3 +109,10 @@ pass :Mathan@5
 
 Create a .env File and update the "NEXT_PUBLIC_API_URL=https://carwash-saas.onrender.com
  " paste this in ENV file 
+
+
+<img width="1903" height="930" alt="image" src="https://github.com/user-attachments/assets/312a4499-cdab-425b-af46-d45c5450773f" /><img width="1899" height="930" alt="image" src="https://github.com/user-attachments/assets/a9f5a80d-8596-43ff-a64e-939a2fcaf788" /><img width="1905" height="930" alt="image" src="https://github.com/user-attachments/assets/1ae20a49-9f7e-4d80-8ec7-b3169748daa8" /><img width="1905" height="933" alt="image" src="https://github.com/user-attachments/assets/882390c5-906b-4fa9-beaa-de66b7ff89cb" /><img width="1911" height="930" alt="image" src="https://github.com/user-attachments/assets/6610de01-0cce-48bc-9f15-67512a76d431" />
+
+
+
+
